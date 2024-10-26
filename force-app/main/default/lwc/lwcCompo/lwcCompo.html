@@ -1,0 +1,49 @@
+<template>
+    <!-- Display Agent Name -->
+    <lightning-card title="Applicants">
+        <div class="slds-p-around_medium">
+            <lightning-input label="Agent Name" value={agentName} onchange={handleAgentNameChange}></lightning-input>
+        </div>
+        <!-- Input Fields for From Date and To Date -->
+        <div class="slds-p-around_medium">
+            <lightning-input label="From Date" type="date" value={fromDate} onchange={handleFromDateChange}></lightning-input>
+            <lightning-input label="To Date" type="date" value={toDate} onchange={handleToDateChange}></lightning-input>
+            <lightning-button label="Search" onclick={handleSearch} class="slds-m-top_medium"></lightning-button>
+        </div>
+    </lightning-card>
+
+    <!-- Modal Popup for Showing Search Results -->
+    <template if:true={isModalOpen}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+
+                <!-- Modal/Popup Header -->
+                <header class="slds-modal__header">
+
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={handleCloseModal}>
+                        <lightning-icon icon-name="utility:close" alternative-text="close" size="small"></lightning-icon>
+                    </button>
+                    
+                    <h2 class="slds-text-heading_medium">Applications</h2>
+                </header>
+
+                <!-- Modal Body - Table -->
+                <div class="slds-modal__content slds-p-around_medium">
+                    <lightning-datatable
+                        key-field="id"
+                        data={applications}
+                        columns={columns}>
+                    </lightning-datatable>
+                </div>
+
+                <!-- Modal Footer -->
+                <footer class="slds-modal__footer">
+                    <lightning-button label="Close" onclick={handleCloseModal}></lightning-button>
+                </footer>
+            </div>
+        </section>
+
+        <!-- Modal Backdrop -->
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+</template>
